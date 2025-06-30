@@ -1,0 +1,54 @@
+name: Integration Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to test against'
+        required: true
+        default: 'Test'
+        type: choice
+        options:
+        - Test
+        - Production
+  schedule:
+    # Run integration tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'Test' }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Run Integration Tests
+      run: dotnet test tests/CermApiConnector.Tests/CermApiConnector.Tests.csproj --no-build --configuration Release --filter "Category=Integration" --verbosity normal
+      env:
+        CermApiSettings__Environment: ${{ github.event.inputs.environment || 'Test' }}
+        CermApiSettings__ClientId: ${{ secrets.CERM_CLIENT_ID }}
+        CermApiSettings__ClientSecret: ${{ secrets.CERM_CLIENT_SECRET }}
+        CermApiSettings__Username: ${{ secrets.CERM_USERNAME }}
+        CermApiSettings__Password: ${{ secrets.CERM_PASSWORD }}
+    
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-${{ github.event.inputs.environment || 'Test' }}
+        path: |
+          **/TestResults/**
+          **/*.trx
+          **/*.xml

@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    
+    <!-- Package Information -->
+    <PackageId>CermApiConnector</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Mike ten Hoonte</Authors>
+    <Company>Vila Etiketten</Company>
+    <Product>CERM API Connector</Product>
+    <Description>A C# .NET library for integrating with the CERM API, providing comprehensive functionality for address management, calculations, products, and sales order operations.</Description>
+    <PackageTags>cerm;api;connector;address;calculation;product;sales-order;integration</PackageTags>
+    <PackageProjectUrl>https://github.com/Whateverdoa/cerm-api-connector</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Whateverdoa/cerm-api-connector</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Initial release of CERM API Connector with comprehensive address, calculation, product, and sales order management capabilities.</PackageReleaseNotes>
+    <Copyright>Copyright (c) 2024 Mike ten Hoonte</Copyright>
+    
+    <!-- Assembly Information -->
+    <AssemblyTitle>CERM API Connector</AssemblyTitle>
+    <AssemblyDescription>A C# .NET library for integrating with the CERM API</AssemblyDescription>
+    <AssemblyConfiguration>Release</AssemblyConfiguration>
+    <AssemblyCompany>Vila Etiketten</AssemblyCompany>
+    <AssemblyProduct>CERM API Connector</AssemblyProduct>
+    <AssemblyCopyright>Copyright (c) 2024 Mike ten Hoonte</AssemblyCopyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

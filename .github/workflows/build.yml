@@ -1,0 +1,64 @@
+name: Build
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        dotnet-version: ['8.0.x']
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Test (Unit Tests Only)
+      run: dotnet test --no-build --configuration Release --filter "Category!=Integration" --verbosity normal
+      
+    - name: Pack NuGet Package
+      run: dotnet pack src/CermApiConnector/CermApiConnector.csproj --no-build --configuration Release --output ./artifacts
+    
+    - name: Upload NuGet Package
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-package
+        path: ./artifacts/*.nupkg
+
+  code-quality:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Run Code Analysis
+      run: dotnet build --no-restore --configuration Release --verbosity normal
+      
+    - name: Check Format
+      run: dotnet format --verify-no-changes --verbosity diagnostic

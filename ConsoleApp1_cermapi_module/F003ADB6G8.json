@@ -1,0 +1,40 @@
+{
+    "Description": "F003ADB6G8",
+    "ReferenceAtCustomer": "M45H4C226B",
+    "Delivery": "2025-03-07",
+    "Shipment_method": "PostNL EPS to Business",
+    "OrderQuantity": 1000,
+    "Quantity_per_roll": "",
+    "DispenserQuantity": 0,
+    "Core": "",
+    "UnitPrice": 37.18,
+    "SupplierId": "Drukwerkdeal",
+    "Name": "Roll Stickers",
+    "Street": "Rue Saint Donat 6",
+    "Country": "BE",
+    "PostalCode": "5640",
+    "City": "Mettet",
+    "Contacts": [
+        {
+            "LastName": "Allard",
+            "FirstName": "Guillaume",
+            "Initials": "",
+            "Title": "",
+            "PhoneNumber": "+32 485 40 00 96",
+            "FaxNumber": "",
+            "GSMNumber": "",
+            "Email": "DWD@drukwerkdeal.nl",
+            "Function": ""
+        }
+    ],
+    "Width": "30,0",
+    "Height": "30,0",
+    "Shape": "Circle",
+    "Winding": 1,
+    "Radius": 0,
+    "Premium_White": "N",
+    "Substrate": "Adhesive Label Paper White Gloss",
+    "Adhesive": "Removable Adhesive Glue",
+    "Delivery_Addresses": 1,
+    "LineComment1": "1"
+}
