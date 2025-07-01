@@ -30,7 +30,7 @@ class Program
 
         // Setup dependency injection
         var services = new ServiceCollection();
-        
+
         // Add logging
         services.AddLogging(builder =>
         {
@@ -72,11 +72,11 @@ class Program
     static async Task TestAuthenticationAsync(CermApiClient cermApiClient, ILogger logger)
     {
         logger.LogInformation("\n--- Testing Authentication ---");
-        
+
         try
         {
             var token = await cermApiClient.GetTokenAsync();
-            
+
             if (!string.IsNullOrEmpty(token.AccessToken))
             {
                 logger.LogInformation("✅ Authentication successful!");
@@ -113,7 +113,7 @@ class Program
             if (addressIdResponse.Success && !string.IsNullOrEmpty(addressIdResponse.AddressId))
             {
                 logger.LogInformation("✅ Found existing address: {AddressId}", addressIdResponse.AddressId);
-                
+
                 // Validate the address
                 var validation = await cermApiClient.ValidateAddressIdAsync(addressIdResponse.AddressId);
                 if (validation.Success && validation.Exists)
@@ -127,7 +127,7 @@ class Program
             else
             {
                 logger.LogInformation("No existing address found, creating a new one...");
-                
+
                 // Create a new address
                 var createRequest = new CreateAddressRequest
                 {
@@ -144,7 +144,7 @@ class Program
                 };
 
                 var createResponse = await cermApiClient.CreateAddressAsync(createRequest);
-                
+
                 if (createResponse.Success)
                 {
                     logger.LogInformation("✅ Address created successfully: {AddressId}", createResponse.AddressId);
@@ -168,7 +168,7 @@ class Program
         try
         {
             var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-            
+
             // Step 1: Create a calculation
             logger.LogInformation("Step 1: Creating calculation...");
             var calculationData = new
@@ -180,11 +180,11 @@ class Program
                 CustomerId = "100001"
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var calculationResponse = await cermApiClient.CreateCalculationWithJsonAsync(calculationJson);
-            
+
             if (calculationResponse.Success)
             {
                 logger.LogInformation("✅ Calculation created: {CalculationId}", calculationResponse.CalculationId);

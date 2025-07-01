@@ -14,7 +14,7 @@ public class SalesOrderTests : TestBase
     public SalesOrderTests() : base()
     {
         _testOrderData = TestDataProvider.GetDefaultOrderData();
-        Logger.LogInformation("SalesOrderTests initialized with test data: {OrderData}", 
+        Logger.LogInformation("SalesOrderTests initialized with test data: {OrderData}",
             SerializeObject(_testOrderData));
     }
 
@@ -31,7 +31,7 @@ public class SalesOrderTests : TestBase
         {
             // Create sales order JSON payload
             var salesOrderJson = TestDataProvider.CreateSalesOrderJsonPayload(_testOrderData, customerId, contactId);
-            
+
             // Add unique identifier to avoid conflicts
             var salesOrderData = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(salesOrderJson);
             var modifiedSalesOrder = new
@@ -46,7 +46,7 @@ public class SalesOrderTests : TestBase
                 UnitPrice = _testOrderData.UnitPrice
             };
 
-            var modifiedJson = System.Text.Json.JsonSerializer.Serialize(modifiedSalesOrder, 
+            var modifiedJson = System.Text.Json.JsonSerializer.Serialize(modifiedSalesOrder,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Creating sales order with payload: {SalesOrderJson}", modifiedJson);
@@ -97,7 +97,7 @@ public class SalesOrderTests : TestBase
                 ShipmentMethod = _testOrderData.ShipmentMethod,
                 OrderQuantity = _testOrderData.OrderQuantity,
                 UnitPrice = _testOrderData.UnitPrice,
-                
+
                 // Address information
                 DeliveryAddress = new
                 {
@@ -107,7 +107,7 @@ public class SalesOrderTests : TestBase
                     City = _testOrderData.City,
                     Country = _testOrderData.Country
                 },
-                
+
                 // Contact information
                 Contact = new
                 {
@@ -116,7 +116,7 @@ public class SalesOrderTests : TestBase
                     Email = _testOrderData.Contacts.FirstOrDefault()?.Email ?? "DWD@drukwerkdeal.nl",
                     Phone = _testOrderData.Contacts.FirstOrDefault()?.PhoneNumber ?? "+32 485 40 00 96"
                 },
-                
+
                 // Product specifications
                 ProductSpecifications = new
                 {
@@ -129,7 +129,7 @@ public class SalesOrderTests : TestBase
                 }
             };
 
-            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(completeSalesOrder, 
+            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(completeSalesOrder,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Creating complete sales order with payload: {SalesOrderJson}", salesOrderJson);
@@ -147,7 +147,7 @@ public class SalesOrderTests : TestBase
             salesOrderResponse.SalesOrderId.Should().NotBeNullOrEmpty("Sales order ID should not be empty");
 
             Logger.LogInformation("Complete sales order created: SalesOrderId={SalesOrderId}", salesOrderResponse.SalesOrderId);
-            Logger.LogInformation("Order details verified: Quantity={Quantity}, UnitPrice={UnitPrice}, DeliveryDate={DeliveryDate}", 
+            Logger.LogInformation("Order details verified: Quantity={Quantity}, UnitPrice={UnitPrice}, DeliveryDate={DeliveryDate}",
                 _testOrderData.OrderQuantity, _testOrderData.UnitPrice, _testOrderData.Delivery);
 
             LogTestComplete(nameof(SalesOrderCreation_WithCompleteOrderData_ContainsAllRequiredFields), true);
@@ -183,10 +183,10 @@ public class SalesOrderTests : TestBase
                 UnitPrice = _testOrderData.UnitPrice
             };
 
-            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(salesOrderData, 
+            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(salesOrderData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
-            Logger.LogInformation("Creating sales order with different contact: CustomerId={CustomerId}, ContactId={ContactId}", 
+            Logger.LogInformation("Creating sales order with different contact: CustomerId={CustomerId}, ContactId={ContactId}",
                 customerId, contactId);
 
             // Act
@@ -238,7 +238,7 @@ public class SalesOrderTests : TestBase
                 UnitPrice = _testOrderData.UnitPrice
             };
 
-            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(salesOrderData, 
+            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(salesOrderData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var createStartTime = stopwatch.ElapsedMilliseconds;
@@ -256,7 +256,7 @@ public class SalesOrderTests : TestBase
             createTime.Should().BeLessThan(15000, "Sales order creation should complete within 15 seconds");
 
             stopwatch.Stop();
-            Logger.LogInformation("Total sales order operations performance: {TotalTime}ms", 
+            Logger.LogInformation("Total sales order operations performance: {TotalTime}ms",
                 stopwatch.ElapsedMilliseconds);
 
             LogTestComplete(nameof(SalesOrderOperations_PerformanceTest_CompletesWithinTimeout), true);
@@ -264,7 +264,7 @@ public class SalesOrderTests : TestBase
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Logger.LogError(ex, "Sales order performance test failed after {ElapsedMs}ms: {Message}", 
+            Logger.LogError(ex, "Sales order performance test failed after {ElapsedMs}ms: {Message}",
                 stopwatch.ElapsedMilliseconds, ex.Message);
             LogTestComplete(nameof(SalesOrderOperations_PerformanceTest_CompletesWithinTimeout), false);
             throw;
@@ -290,7 +290,7 @@ public class SalesOrderTests : TestBase
                 OrderQuantity = _testOrderData.OrderQuantity
             };
 
-            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(incompleteSalesOrder, 
+            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(incompleteSalesOrder,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Testing sales order with missing fields: {SalesOrderJson}", salesOrderJson);
@@ -305,7 +305,7 @@ public class SalesOrderTests : TestBase
                 );
             });
 
-            Logger.LogInformation("Sales order validation correctly rejected incomplete data: {ExceptionMessage}", 
+            Logger.LogInformation("Sales order validation correctly rejected incomplete data: {ExceptionMessage}",
                 exception.Message);
 
             LogTestComplete(nameof(SalesOrderValidation_WithMissingRequiredFields_HandlesErrorsGracefully), true);

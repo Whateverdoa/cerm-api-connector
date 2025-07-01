@@ -202,9 +202,9 @@ public static class TestDataProvider
             Active = true
         };
 
-        return System.Text.Json.JsonSerializer.Serialize(addressData, new System.Text.Json.JsonSerializerOptions 
-        { 
-            WriteIndented = true 
+        return System.Text.Json.JsonSerializer.Serialize(addressData, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true
         });
     }
 
@@ -222,9 +222,9 @@ public static class TestDataProvider
             CustomerId = GetTestCustomerId()
         };
 
-        return System.Text.Json.JsonSerializer.Serialize(calculationData, new System.Text.Json.JsonSerializerOptions 
-        { 
-            WriteIndented = true 
+        return System.Text.Json.JsonSerializer.Serialize(calculationData, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true
         });
     }
 
@@ -247,9 +247,9 @@ public static class TestDataProvider
             Adhesive = orderData.Adhesive
         };
 
-        return System.Text.Json.JsonSerializer.Serialize(productData, new System.Text.Json.JsonSerializerOptions 
-        { 
-            WriteIndented = true 
+        return System.Text.Json.JsonSerializer.Serialize(productData, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true
         });
     }
 
@@ -270,9 +270,9 @@ public static class TestDataProvider
             UnitPrice = orderData.UnitPrice
         };
 
-        return System.Text.Json.JsonSerializer.Serialize(salesOrderData, new System.Text.Json.JsonSerializerOptions 
-        { 
-            WriteIndented = true 
+        return System.Text.Json.JsonSerializer.Serialize(salesOrderData, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true
         });
     }
 }

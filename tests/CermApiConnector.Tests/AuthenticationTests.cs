@@ -35,7 +35,7 @@ public class AuthenticationTests : TestBase
             token.TokenType.Should().NotBeNullOrEmpty("Token type should not be null or empty");
             token.ExpiresIn.Should().BeGreaterThan(0, "Token expiration should be greater than 0");
 
-            Logger.LogInformation("Token retrieved successfully: Type={TokenType}, ExpiresIn={ExpiresIn}s", 
+            Logger.LogInformation("Token retrieved successfully: Type={TokenType}, ExpiresIn={ExpiresIn}s",
                 token.TokenType, token.ExpiresIn);
 
             LogTestComplete(nameof(GetTokenAsync_ValidCredentials_ReturnsValidToken), true);
@@ -107,10 +107,10 @@ public class AuthenticationTests : TestBase
             token.IsExpired.Should().BeFalse("Token should not be expired immediately after retrieval");
 
             var expectedExpiryTime = DateTime.UtcNow.AddSeconds(token.ExpiresIn);
-            token.ExpiresAt.Should().BeCloseTo(expectedExpiryTime, TimeSpan.FromSeconds(5), 
+            token.ExpiresAt.Should().BeCloseTo(expectedExpiryTime, TimeSpan.FromSeconds(5),
                 "Token expiry time should be calculated correctly");
 
-            Logger.LogInformation("Token expiry validation passed - ExpiresAt={ExpiresAt}, IsExpired={IsExpired}", 
+            Logger.LogInformation("Token expiry validation passed - ExpiresAt={ExpiresAt}, IsExpired={IsExpired}",
                 token.ExpiresAt, token.IsExpired);
 
             LogTestComplete(nameof(GetTokenAsync_TokenExpiration_ChecksExpiryCorrectly), true);
@@ -143,12 +143,12 @@ public class AuthenticationTests : TestBase
             // Assert
             tokens.Should().HaveCount(5, "All token requests should complete");
             tokens.Should().OnlyContain(t => t != null, "All tokens should be non-null");
-            tokens.Should().OnlyContain(t => !string.IsNullOrEmpty(t.AccessToken), 
+            tokens.Should().OnlyContain(t => !string.IsNullOrEmpty(t.AccessToken),
                 "All tokens should have access tokens");
 
             // All tokens should be the same due to caching
             var firstToken = tokens[0].AccessToken;
-            tokens.Should().OnlyContain(t => t.AccessToken == firstToken, 
+            tokens.Should().OnlyContain(t => t.AccessToken == firstToken,
                 "All concurrent requests should return the same cached token");
 
             Logger.LogInformation("Multiple concurrent token requests handled correctly");
@@ -183,10 +183,10 @@ public class AuthenticationTests : TestBase
 
             // Assert
             token.Should().NotBeNull("Token should be retrieved within timeout");
-            stopwatch.ElapsedMilliseconds.Should().BeLessThan(10000, 
+            stopwatch.ElapsedMilliseconds.Should().BeLessThan(10000,
                 "Token retrieval should complete within 10 seconds");
 
-            Logger.LogInformation("Token retrieval performance: {ElapsedMs}ms", 
+            Logger.LogInformation("Token retrieval performance: {ElapsedMs}ms",
                 stopwatch.ElapsedMilliseconds);
 
             LogTestComplete(nameof(GetTokenAsync_PerformanceTest_CompletesWithinTimeout), true);
@@ -194,7 +194,7 @@ public class AuthenticationTests : TestBase
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Logger.LogError(ex, "Performance test failed after {ElapsedMs}ms: {Message}", 
+            Logger.LogError(ex, "Performance test failed after {ElapsedMs}ms: {Message}",
                 stopwatch.ElapsedMilliseconds, ex.Message);
             LogTestComplete(nameof(GetTokenAsync_PerformanceTest_CompletesWithinTimeout), false);
             throw;

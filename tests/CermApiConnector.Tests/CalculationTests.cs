@@ -14,7 +14,7 @@ public class CalculationTests : TestBase
     public CalculationTests() : base()
     {
         _testOrderData = TestDataProvider.GetDefaultOrderData();
-        Logger.LogInformation("CalculationTests initialized with test data: {OrderData}", 
+        Logger.LogInformation("CalculationTests initialized with test data: {OrderData}",
             SerializeObject(_testOrderData));
     }
 
@@ -72,7 +72,7 @@ public class CalculationTests : TestBase
         {
             // Create calculation JSON payload from order data
             var calculationJson = TestDataProvider.CreateCalculationJsonPayload(_testOrderData);
-            
+
             // Add unique identifier to avoid conflicts
             var calculationData = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(calculationJson);
             var modifiedCalculation = new
@@ -84,7 +84,7 @@ public class CalculationTests : TestBase
                 CustomerId = TestDataProvider.GetTestCustomerId()
             };
 
-            var modifiedJson = System.Text.Json.JsonSerializer.Serialize(modifiedCalculation, 
+            var modifiedJson = System.Text.Json.JsonSerializer.Serialize(modifiedCalculation,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Creating calculation with payload: {CalculationJson}", modifiedJson);
@@ -192,7 +192,7 @@ public class CalculationTests : TestBase
                 CustomerId = customerId
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Step 1: Creating calculation with payload: {CalculationJson}", calculationJson);
@@ -263,7 +263,7 @@ public class CalculationTests : TestBase
                 CustomerId = customerId
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var createStartTime = stopwatch.ElapsedMilliseconds;
@@ -278,7 +278,7 @@ public class CalculationTests : TestBase
             createTime.Should().BeLessThan(15000, "Calculation creation should complete within 15 seconds");
 
             stopwatch.Stop();
-            Logger.LogInformation("Total calculation operations performance: {TotalTime}ms", 
+            Logger.LogInformation("Total calculation operations performance: {TotalTime}ms",
                 stopwatch.ElapsedMilliseconds);
 
             LogTestComplete(nameof(CalculationOperations_PerformanceTest_CompletesWithinTimeout), true);
@@ -286,7 +286,7 @@ public class CalculationTests : TestBase
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Logger.LogError(ex, "Calculation performance test failed after {ElapsedMs}ms: {Message}", 
+            Logger.LogError(ex, "Calculation performance test failed after {ElapsedMs}ms: {Message}",
                 stopwatch.ElapsedMilliseconds, ex.Message);
             LogTestComplete(nameof(CalculationOperations_PerformanceTest_CompletesWithinTimeout), false);
             throw;

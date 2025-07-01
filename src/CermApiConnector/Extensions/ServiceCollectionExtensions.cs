@@ -17,13 +17,13 @@ public static class ServiceCollectionExtensions
     {
         // Register the CermApiSettings
         services.Configure<CermApiSettings>(configuration.GetSection("CermApiSettings"));
-        
+
         // Register the HttpClient for the CermApiClient
         services.AddHttpClient<CermApiClient>();
-        
+
         // Register the CermApiClient
         services.AddTransient<CermApiClient>();
-        
+
         return services;
     }
 }

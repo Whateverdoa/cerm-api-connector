@@ -14,7 +14,7 @@ public class IntegrationTests : TestBase
     public IntegrationTests() : base()
     {
         _testOrderData = TestDataProvider.GetDefaultOrderData();
-        Logger.LogInformation("IntegrationTests initialized with test data: {OrderData}", 
+        Logger.LogInformation("IntegrationTests initialized with test data: {OrderData}",
             SerializeObject(_testOrderData));
     }
 
@@ -41,7 +41,7 @@ public class IntegrationTests : TestBase
             // Step 2: Create/Fetch Address
             Logger.LogInformation("Step 2: Creating address from order data");
             var addressJson = TestDataProvider.CreateAddressJsonPayload(_testOrderData, customerId);
-            
+
             var step2StartTime = stopwatch.ElapsedMilliseconds;
             var addressResponse = await WithTimeoutAsync(
                 CermApiClient.CreateAddressWithJsonAsync(addressJson),
@@ -54,7 +54,7 @@ public class IntegrationTests : TestBase
             addressResponse.Success.Should().BeTrue("Address creation should succeed");
             addressResponse.AddressId.Should().NotBeNullOrEmpty("Address ID should not be empty");
             addressId = addressResponse.AddressId;
-            Logger.LogInformation("Step 2 Complete: Address created - AddressId={AddressId} ({Time}ms)", 
+            Logger.LogInformation("Step 2 Complete: Address created - AddressId={AddressId} ({Time}ms)",
                 addressId, step2Time);
 
             // Step 3: Create Calculation
@@ -68,7 +68,7 @@ public class IntegrationTests : TestBase
                 CustomerId = customerId
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var step3StartTime = stopwatch.ElapsedMilliseconds;
@@ -102,7 +102,7 @@ public class IntegrationTests : TestBase
                 Adhesive = _testOrderData.Adhesive
             };
 
-            var productJson = System.Text.Json.JsonSerializer.Serialize(productData, 
+            var productJson = System.Text.Json.JsonSerializer.Serialize(productData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var step4StartTime = stopwatch.ElapsedMilliseconds;
@@ -117,7 +117,7 @@ public class IntegrationTests : TestBase
             productResponse.Success.Should().BeTrue("Product creation should succeed");
             productResponse.ProductId.Should().NotBeNullOrEmpty("Product ID should not be empty");
             productId = productResponse.ProductId;
-            Logger.LogInformation("Step 4 Complete: Product created - ProductId={ProductId} ({Time}ms)", 
+            Logger.LogInformation("Step 4 Complete: Product created - ProductId={ProductId} ({Time}ms)",
                 productId, step4Time);
 
             // Step 5: Create Sales Order
@@ -137,7 +137,7 @@ public class IntegrationTests : TestBase
                 ProductId = productId
             };
 
-            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(salesOrderData, 
+            var salesOrderJson = System.Text.Json.JsonSerializer.Serialize(salesOrderData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var step5StartTime = stopwatch.ElapsedMilliseconds;
@@ -167,7 +167,7 @@ public class IntegrationTests : TestBase
             Logger.LogInformation("  - Sales Order ID: {SalesOrderId}", salesOrderId);
 
             // Performance assertions
-            stopwatch.ElapsedMilliseconds.Should().BeLessThan(120000, 
+            stopwatch.ElapsedMilliseconds.Should().BeLessThan(120000,
                 "Complete workflow should finish within 2 minutes");
 
             LogTestComplete(nameof(CompleteOrderWorkflow_EndToEnd_CreatesAllEntitiesSuccessfully), true);
@@ -175,7 +175,7 @@ public class IntegrationTests : TestBase
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Logger.LogError(ex, "Integration test failed after {ElapsedMs}ms at step with entities: Address={AddressId}, Calculation={CalculationId}, Product={ProductId}, SalesOrder={SalesOrderId}", 
+            Logger.LogError(ex, "Integration test failed after {ElapsedMs}ms at step with entities: Address={AddressId}, Calculation={CalculationId}, Product={ProductId}, SalesOrder={SalesOrderId}",
                 stopwatch.ElapsedMilliseconds, addressId, calculationId, productId, salesOrderId);
             LogTestComplete(nameof(CompleteOrderWorkflow_EndToEnd_CreatesAllEntitiesSuccessfully), false);
             throw;
@@ -193,7 +193,7 @@ public class IntegrationTests : TestBase
         {
             // Test with invalid customer ID
             var invalidCustomerId = "INVALID_CUSTOMER_ID";
-            
+
             Logger.LogInformation("Testing workflow with invalid customer ID: {InvalidCustomerId}", invalidCustomerId);
 
             // This should fail gracefully
@@ -207,7 +207,7 @@ public class IntegrationTests : TestBase
                 );
             });
 
-            Logger.LogInformation("Workflow correctly handled invalid customer ID: {ExceptionMessage}", 
+            Logger.LogInformation("Workflow correctly handled invalid customer ID: {ExceptionMessage}",
                 exception.Message);
 
             LogTestComplete(nameof(WorkflowErrorHandling_WithInvalidData_HandlesGracefully), true);
@@ -277,7 +277,7 @@ public class IntegrationTests : TestBase
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Logger.LogError(ex, "Concurrent workflows test failed after {ElapsedMs}ms: {Message}", 
+            Logger.LogError(ex, "Concurrent workflows test failed after {ElapsedMs}ms: {Message}",
                 stopwatch.ElapsedMilliseconds, ex.Message);
             LogTestComplete(nameof(ConcurrentWorkflows_MultipleOrders_HandleCorrectly), false);
             throw;
@@ -304,7 +304,7 @@ public class IntegrationTests : TestBase
                 CustomerId = customerId
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var calculationResponse = await CermApiClient.CreateCalculationWithJsonAsync(calculationJson);
@@ -324,7 +324,7 @@ public class IntegrationTests : TestBase
                 Height = _testOrderData.Height
             };
 
-            var productJson = System.Text.Json.JsonSerializer.Serialize(productData, 
+            var productJson = System.Text.Json.JsonSerializer.Serialize(productData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var productResponse = await CermApiClient.CreateProductWithJsonAsync(calculationResponse.CalculationId!, productJson);
@@ -334,7 +334,7 @@ public class IntegrationTests : TestBase
 
             Logger.LogInformation("Data consistency verified: CalculationId={CalculationId}, ProductId={ProductId}",
                 calculationResponse.CalculationId, productResponse.ProductId);
-            Logger.LogInformation("Consistent data: Description={Description}, Quantity={Quantity}", 
+            Logger.LogInformation("Consistent data: Description={Description}, Quantity={Quantity}",
                 calculationData.Description, calculationData.Quantity);
 
             LogTestComplete(nameof(DataConsistency_AcrossEndpoints_MaintainsIntegrity), true);

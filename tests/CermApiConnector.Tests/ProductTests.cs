@@ -14,7 +14,7 @@ public class ProductTests : TestBase
     public ProductTests() : base()
     {
         _testOrderData = TestDataProvider.GetDefaultOrderData();
-        Logger.LogInformation("ProductTests initialized with test data: {OrderData}", 
+        Logger.LogInformation("ProductTests initialized with test data: {OrderData}",
             SerializeObject(_testOrderData));
     }
 
@@ -37,7 +37,7 @@ public class ProductTests : TestBase
                 CustomerId = TestDataProvider.GetTestCustomerId()
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Creating calculation for product test: {CalculationJson}", calculationJson);
@@ -102,7 +102,7 @@ public class ProductTests : TestBase
                 CustomerId = TestDataProvider.GetTestCustomerId()
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var calculationResponse = await WithTimeoutAsync(
@@ -118,7 +118,7 @@ public class ProductTests : TestBase
 
             // Create product JSON payload
             var productJson = TestDataProvider.CreateProductJsonPayload(_testOrderData, calculationResponse.CalculationId!);
-            
+
             // Add unique identifier to avoid conflicts
             var productData = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(productJson);
             var modifiedProduct = new
@@ -135,7 +135,7 @@ public class ProductTests : TestBase
                 Adhesive = _testOrderData.Adhesive
             };
 
-            var modifiedJson = System.Text.Json.JsonSerializer.Serialize(modifiedProduct, 
+            var modifiedJson = System.Text.Json.JsonSerializer.Serialize(modifiedProduct,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Creating product with JSON payload: {ProductJson}", modifiedJson);
@@ -184,7 +184,7 @@ public class ProductTests : TestBase
                 CustomerId = TestDataProvider.GetTestCustomerId()
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var calculationResponse = await CermApiClient.CreateCalculationWithJsonAsync(calculationJson);
@@ -209,7 +209,7 @@ public class ProductTests : TestBase
                 PremiumWhite = _testOrderData.PremiumWhite // "N"
             };
 
-            var productJson = System.Text.Json.JsonSerializer.Serialize(productData, 
+            var productJson = System.Text.Json.JsonSerializer.Serialize(productData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             Logger.LogInformation("Creating product with complete specifications: {ProductJson}", productJson);
@@ -227,7 +227,7 @@ public class ProductTests : TestBase
             productResponse.ProductId.Should().NotBeNullOrEmpty("Product ID should not be empty");
 
             Logger.LogInformation("Product with complete specifications created: ProductId={ProductId}", productResponse.ProductId);
-            Logger.LogInformation("Product specifications verified: Quantity={Quantity}, UnitPrice={UnitPrice}, Shape={Shape}, Substrate={Substrate}", 
+            Logger.LogInformation("Product specifications verified: Quantity={Quantity}, UnitPrice={UnitPrice}, Shape={Shape}, Substrate={Substrate}",
                 _testOrderData.OrderQuantity, _testOrderData.UnitPrice, _testOrderData.Shape, _testOrderData.Substrate);
 
             LogTestComplete(nameof(ProductCreation_WithCompleteSpecifications_ContainsCorrectData), true);
@@ -261,7 +261,7 @@ public class ProductTests : TestBase
                 CustomerId = TestDataProvider.GetTestCustomerId()
             };
 
-            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData, 
+            var calculationJson = System.Text.Json.JsonSerializer.Serialize(calculationData,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
             var calculationResponse = await WithTimeoutAsync(
@@ -297,7 +297,7 @@ public class ProductTests : TestBase
             productTime.Should().BeLessThan(10000, "Product creation should complete within 10 seconds");
 
             stopwatch.Stop();
-            Logger.LogInformation("Total product operations performance: {TotalTime}ms", 
+            Logger.LogInformation("Total product operations performance: {TotalTime}ms",
                 stopwatch.ElapsedMilliseconds);
 
             LogTestComplete(nameof(ProductOperations_PerformanceTest_CompletesWithinTimeout), true);
@@ -305,7 +305,7 @@ public class ProductTests : TestBase
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Logger.LogError(ex, "Product performance test failed after {ElapsedMs}ms: {Message}", 
+            Logger.LogError(ex, "Product performance test failed after {ElapsedMs}ms: {Message}",
                 stopwatch.ElapsedMilliseconds, ex.Message);
             LogTestComplete(nameof(ProductOperations_PerformanceTest_CompletesWithinTimeout), false);
             throw;

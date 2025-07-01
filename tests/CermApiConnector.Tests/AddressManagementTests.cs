@@ -14,7 +14,7 @@ public class AddressManagementTests : TestBase
     public AddressManagementTests() : base()
     {
         _testOrderData = TestDataProvider.GetDefaultOrderData();
-        Logger.LogInformation("AddressManagementTests initialized with test data: {OrderData}", 
+        Logger.LogInformation("AddressManagementTests initialized with test data: {OrderData}",
             SerializeObject(_testOrderData));
     }
 
@@ -73,7 +73,7 @@ public class AddressManagementTests : TestBase
         LogTestStart(nameof(CreateAddressAsync_WithOrderData_ReturnsValidAddressId));
         var customerId = TestDataProvider.GetTestCustomerId();
         var uniqueTestId = GenerateTestId();
-        
+
         // Create unique address name to avoid conflicts
         var testAddressName = $"{_testOrderData.Name}_TEST_{uniqueTestId}";
 
@@ -123,7 +123,7 @@ public class AddressManagementTests : TestBase
     {
         // Arrange
         LogTestStart(nameof(ValidateAddressIdAsync_WithValidId_ReturnsAddressDetails));
-        
+
         try
         {
             // First, try to get an existing address ID or create one
@@ -174,8 +174,8 @@ public class AddressManagementTests : TestBase
 
             // Assert
             addressDetails.Should().NotBeNull("Address validation should return address details");
-            
-            Logger.LogInformation("Address validation successful: {AddressDetails}", 
+
+            Logger.LogInformation("Address validation successful: {AddressDetails}",
                 SerializeObject(addressDetails));
 
             LogTestComplete(nameof(ValidateAddressIdAsync_WithValidId_ReturnsAddressDetails), true);
@@ -308,7 +308,7 @@ public class AddressManagementTests : TestBase
             }
 
             stopwatch.Stop();
-            Logger.LogInformation("Total address operations performance: {TotalTime}ms", 
+            Logger.LogInformation("Total address operations performance: {TotalTime}ms",
                 stopwatch.ElapsedMilliseconds);
 
             LogTestComplete(nameof(AddressOperations_PerformanceTest_CompletesWithinTimeout), true);
@@ -316,7 +316,7 @@ public class AddressManagementTests : TestBase
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Logger.LogError(ex, "Address performance test failed after {ElapsedMs}ms: {Message}", 
+            Logger.LogError(ex, "Address performance test failed after {ElapsedMs}ms: {Message}",
                 stopwatch.ElapsedMilliseconds, ex.Message);
             LogTestComplete(nameof(AddressOperations_PerformanceTest_CompletesWithinTimeout), false);
             throw;

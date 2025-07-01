@@ -38,7 +38,7 @@ public abstract class TestBase : IDisposable
 
         // Setup services
         var services = new ServiceCollection();
-        
+
         // Add logging
         services.AddLogging(builder =>
         {
@@ -81,9 +81,9 @@ public abstract class TestBase : IDisposable
     /// </summary>
     protected string SerializeObject(object obj)
     {
-        return JsonSerializer.Serialize(obj, new JsonSerializerOptions 
-        { 
-            WriteIndented = true 
+        return JsonSerializer.Serialize(obj, new JsonSerializerOptions
+        {
+            WriteIndented = true
         });
     }
 
