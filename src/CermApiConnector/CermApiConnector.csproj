@@ -10,7 +10,7 @@
     <!-- Package Information -->
     <PackageId>CermApiConnector</PackageId>
     <Version>1.0.0</Version>
-    <Authors>Mike ten Hoonte <Authors>Mike ten Hoonte</Authors>lt;whateverdoa@gmail.com<Authors>Mike ten Hoonte</Authors>gt;</Authors>
+    <Authors>Mike ten Hoonte &lt;whateverdoa@gmail.com&gt;</Authors>
     <Company>Vila Etiketten</Company>
     <Product>CERM API Connector</Product>
     <Description>A C# .NET library for integrating with the CERM API, providing comprehensive functionality for address management, calculations, products, and sales order operations.</Description>
