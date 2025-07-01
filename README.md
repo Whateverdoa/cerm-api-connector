@@ -190,7 +190,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ### Development Setup
 
 1. Clone the repository
-2. Install .NET 8.0 SDK
+2. Install .NET 9.0 SDK
 3. Set up user secrets for testing
 4. Run tests to verify setup
 
@@ -203,7 +203,7 @@ dotnet test
 
 ## 📋 Requirements
 
-- .NET 8.0 or later
+- .NET 9.0 or later
 - Valid CERM API credentials
 - Internet connectivity for API calls
 
@@ -223,7 +223,7 @@ We use [SemVer](http://semver.org/) for versioning. For available versions, see 
 
 ## 👥 Authors
 
-- **Mike ten Hoonte** - *Initial work* - [@Whateverdoa](https://github.com/Whateverdoa)
+- **Mike ten Hoonte** - *Initial work* - [@Whateverdoa](https://github.com/Whateverdoa) - whateverdoa@gmail.com(https://github.com/Whateverdoa)
 
 ## 🙏 Acknowledgments
 

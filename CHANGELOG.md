@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial project setup and repository structure
 - Comprehensive documentation and contribution guidelines
 
-## [1.0.0] - 2024-12-30
+## [1.0.0] - 2025-01-01
 
 ### Added
 - **Core CERM API Client** with OAuth authentication
@@ -71,7 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Performance optimizations with async/await patterns
 
 ### Technical Details
-- **Target Framework**: .NET 8.0
+- **Target Framework**: .NET 9.0
 - **Dependencies**:
   - Microsoft.Extensions.Configuration (8.0.0)
   - Microsoft.Extensions.DependencyInjection.Abstractions (8.0.2)
